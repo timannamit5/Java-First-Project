@@ -14,13 +14,11 @@ public class CheckEvenTest
         super( testName );
     }
 
-    
     public static Test suite()
     {
         return new TestSuite( CheckEvenTest.class );
     }
 
-    
     public void testApp1()
     {
         boolean x = CheckEven.check(5);
