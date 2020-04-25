@@ -1,0 +1,227 @@
+krishna@krishna-Lenovo-G50-70:~$ sudo -i -u postgres
+[sudo] password for krishna: 
+postgres@krishna-Lenovo-G50-70:~$ psql
+psql (10.12 (Ubuntu 10.12-0ubuntu0.18.04.1))
+Type "help" for help.
+
+postgres=# CREATE DATABASE pjppractice;
+postgres-# \l
+
+List of databases
+    Name     |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-------------+----------+----------+---------+-------+-----------------------
+ pjppractice | postgres | UTF8     | en_IN   | en_IN | 
+ postgres    | postgres | UTF8     | en_IN   | en_IN | 
+ template0   | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+             |          |          |         |       | postgres=CTc/postgres
+ template1   | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+             |          |          |         |       | postgres=CTc/postgres
+(4 rows)
+
+postgres=# \c pjppractice;
+You are now connected to database "pjppractice" as user "postgres".
+pjppractice=# 
+
+pjppractice=# \dt
+Did not find any relations.
+
+pjppractice=# CREATE table test (id integer, fname char(30));
+CREATE TABLE
+
+pjppractice=# CREATE table test (id integer, fname char(30));
+CREATE TABLE
+
+pjppractice=# alter table test add lanme char(30);
+ALTER TABLE
+
+pjppractice=# alter table test rename column lanme to last_name;
+ALTER TABLE
+
+pjppractice=# alter table test add primary key (id);
+ALTER TABLE
+
+pjppractice=# alter table test drop column last_name;
+ALTER TABLE
+
+pjppractice=# alter table test rename to test1;
+ALTER TABLE
+
+pjppractice=# table test1;
+ id | fname 
+----+-------
+(0 rows)
+
+CREATE DATABASE efs_db;
+
+efs_db=# \d
+              List of relations
+ Schema |       Name       | Type  |  Owner   
+--------+------------------+-------+----------
+ public | batches          | table | postgres
+ public | courseandmodules | table | postgres
+ public | courses          | table | postgres
+ public | modules          | table | postgres
+ public | students         | table | postgres
+ public | trainers         | table | postgres
+(6 rows)
+
+
+efs_db=# SELECT modulecode, duration from modules where duration<6;
+ modulecode | duration 
+------------+----------
+ JAV-1      |        3
+ JAV-3      |        3
+ JAV-6      |        4
+ JAV-7      |        3
+ WEB-1      |        4
+(5 rows)
+
+efs_db=# select BATCHCODE, TRAINERID, COURSECODE, STARTDATE, CAPACITY 
+efs_db-# , BATCHSTRENGTH from batches where batches.trainerid in 
+efs_db-# (select trainerid from trainers where trainername = 'KRISHNAN');
+
+
+batchcode | trainerid | coursecode | startdate  | capacity | batchstrength 
+-----------+-----------+------------+------------+----------+---------------
+      3003 |       703 |        303 | 2012-01-02 |       10 |            10
+      3005 |       703 |        300 | 2011-01-02 |        5 |             5
+      3009 |       703 |        202 | 2012-07-09 |       10 |             5
+(3 rows)
+
+efs_db=# select modulename from modules where modulecode in ( select modulecode from courseandmodules where coursecode = 100);
+ modulename 
+------------
+ OOAD
+ CORE JAVA
+ JUNIT
+(3 rows)
+
+efs_db=# select modules.modulename, courseandmodules.coursecode from courseandmodules inner join modules on modules.modulecode = courseandmodules.modulecode where coursecode = 100;
+ modulename | coursecode 
+------------+------------
+ OOAD       |        100
+ CORE JAVA  |        100
+ JUNIT      |        100
+(3 rows)
+
+efs_db=# select count(coursecode) as NumberofModules from courseandmodules where coursecode = 100;
+ numberofmodules
+-----------------
+               3
+(1 row)
+
+
+efs_db=# select coursecode, count(coursecode) as numberofmodules from courseandmodules group by coursecode;
+ coursecode | numberofmodules
+------------+-----------------
+        101 |               3
+        200 |               1
+        202 |               2
+        201 |               2
+        100 |               3
+        203 |               4
+(6 rows)
+
+
+efs_db=# select title, fees from courses where fees in (select max(fees) from courses);
+   title    | fees
+------------+-------
+ Oracle DBA | 34500
+(1 row)
+
+
+efs_db=# select * from students where batchcode = 3001;
+ studentid | studentname | batchcode |  place  |   phone
+-----------+-------------+-----------+---------+------------
+      1001 | SANKAR      |      3001 | CHENNAI | 9373737374
+      1002 | UMA         |      3001 | CHENNAI | 9373737374
+      1007 | MAHAL       |      3001 | CHENNAI | 9078737373
+      1011 | KUMARAN     |      3001 | CHENNAI | 9393737377
+      1020 | SANGEETHA   |      3001 | MADURAI | 9373737374
+      1013 | SAI         |      3001 | CHENNAI | 9373737374
+(6 rows)
+
+
+efs_db=# select * from students where place = 'CHENNAI';
+ studentid | studentname | batchcode |  place  |   phone
+-----------+-------------+-----------+---------+------------
+      1001 | SANKAR      |      3001 | CHENNAI | 9373737374
+      1002 | UMA         |      3001 | CHENNAI | 9373737374
+      1003 | BANU        |      3002 | CHENNAI | 9373737364
+      1006 | SOMU        |      3003 | CHENNAI | 9143737374
+      1007 | MAHAL       |      3001 | CHENNAI | 9078737373
+      1008 | AMIR        |      3003 | CHENNAI | 8373737374
+      1009 | VINOTH      |      3004 | CHENNAI | 9973737370
+      1011 | KUMARAN     |      3001 | CHENNAI | 9393737377
+      1012 | AMIR        |      3003 | CHENNAI | 9370737374
+      1014 | JOHN        |      3005 | CHENNAI | 9070737374
+      1015 | JAMMAL      |      3005 | CHENNAI | 9670737373
+      1016 | MOHAMED     |      3004 | CHENNAI | 9373737372
+      1018 | BANISH      |      3003 | CHENNAI | 9373737374
+      1019 | DAN         |      3002 | CHENNAI | 9373737374
+      1013 | SAI         |      3001 | CHENNAI | 9373737374
+      1001 | SANKAR      |      3004 | CHENNAI | 9073037376
+(16 rows)
+
+
+efs_db=# select count(modulecode) as lessthansixdays from modules where duration<6;
+ lessthansixdays
+-----------------
+               5
+(1 row)
+
+
+efs_db=# select batchcode, courses.title, startdate from batches join courses on batches.coursecode = courses.coursecode where startdate >= '2012-05-01' and startdate < '2012-06-01';
+ batchcode |   title    | startdate
+-----------+------------+------------
+      3010 | Oracle DBA | 2012-05-06
+(1 row)
+
+
+efs_db=# select courses.coursecode, title, fees from courses join batches on courses.coursecode = batches.coursecode where not (batches.startdate >= '2012-01-01' and batches.startdate < '2012-02-01');
+ coursecode |                 title                  | fees
+------------+----------------------------------------+-------
+        200 | Oracle Sql Expert                      |  6500
+        301 | Asp .net certification c#              | 12000
+        300 | DotNet 4.0 using C Sharp Certification |  8000
+        100 | Certificed Java Programer              |  9500
+        201 | Oracle Developer                       | 12000
+        203 | Oracle Data Ware Housing               | 24500
+        202 | Oracle DBA                             | 34500
+        202 | Oracle DBA                             | 34500
+        202 | Oracle DBA                             | 34500
+(9 rows)
+
+
+efs_db=# select modulename from modules join courseandmodules on modules.modulecode = courseandmodules.modulecode join courses on courses.coursecode = courseandmodules.coursecode where courses.title = 'Oracle DBA';
+     modulename
+--------------------
+ DBA
+ PERFORMANCE TUNING
+(2 rows)
+
+
+efs_db=# select studentid, studentname, students.batchcode, place, phone from students join batches on students.batchcode = batches.batchcode where place = 'CHENNAI' and (startdate >= '2012-01-01' and startdate <= '2012-12-31');
+ studentid | studentname | batchcode |  place  |   phone
+-----------+-------------+-----------+---------+------------
+      1001 | SANKAR      |      3001 | CHENNAI | 9373737374
+      1002 | UMA         |      3001 | CHENNAI | 9373737374
+      1006 | SOMU        |      3003 | CHENNAI | 9143737374
+      1007 | MAHAL       |      3001 | CHENNAI | 9078737373
+      1008 | AMIR        |      3003 | CHENNAI | 8373737374
+      1011 | KUMARAN     |      3001 | CHENNAI | 9393737377
+      1012 | AMIR        |      3003 | CHENNAI | 9370737374
+      1018 | BANISH      |      3003 | CHENNAI | 9373737374
+      1013 | SAI         |      3001 | CHENNAI | 9373737374
+(9 rows)
+
+
+efs_db=# select studentid, studentname from students join batches on batches.batchcode = students.batchcode where coursecode = 200;
+ studentid | studentname
+-----------+-------------
+      1003 | BANU
+      1004 | BALAN
+      1005 | HAMEED
+      1019 | DAN
+(4 rows)
+
