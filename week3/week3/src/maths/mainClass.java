@@ -11,7 +11,7 @@ public class mainClass {
 		int num;
 		num = sc.nextInt();
 		NumToWords wordForm = new NumToWords();
-		((NumToWords) wordForm).convert(num);		
+		wordForm.convert(num);		
 		///
 		KeyRead_Line2 keyRead = new KeyRead_Line2();
 		keyRead.Read();

@@ -3,24 +3,24 @@ package maths;
 import java.util.Scanner;
 
 public class mainClass {
-	
+		
 	public static void main(String[] args)
 	{
-		///
 		Scanner sc = new Scanner(System.in);
-		int num;
+		long num;
 		num = sc.nextInt();
 		NumToWords wordForm = new NumToWords();
-		((NumToWords) wordForm).convert(num);		
-		///
+		System.out.println(wordForm.convert(num));
+		System.out.println();
+		//sc.close();
+		
 		KeyRead_Line2 keyRead = new KeyRead_Line2();
 		keyRead.Read();
 		keyRead.display();
 		keyRead.sort();
-		int ser;
-		ser = sc.nextInt();
-		keyRead.find(ser);
-		///
+		keyRead.find();
+		sc.close();
+
 		int len = args.length;
 		int[] arr = new int[len];
 		for(int i=0; i<len; i++) {

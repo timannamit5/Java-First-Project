@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="java-project/src/main/java"/>
+	<classpathentry kind="src" path="java-project/src/test/java"/>
+	<classpathentry kind="src" path="week3/src"/>
+	<classpathentry kind="src" path="week3/week3/src"/>
+	<classpathentry kind="lib" path="java-project/target/java-project-1.0-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="java-project/target/classes"/>
+</classpath>
