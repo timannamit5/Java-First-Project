@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Website 1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="js.css">
+    <script src="js.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+    <body>
+        <form>
+            <fieldset>
+                    <label for="fnumber"> First Number</label>
+                    <input placeholder="Enter the first number" required type="text" id="firstNumber" ">
+                <br>
+                    <label for="snumber"> Second Number</label>
+                    <input placeholder="Enter the second number" required type="text" id="secondNumber" ">
+                <br>
+                <label>Select the Operation</label>
+                <br>
+                    <input type="radio" id="add" name="operation" value="addition">
+                    <label for="addition">Addition</label><br>
+                    
+                    <input type="radio" id="sub" name="operation" value="subtraction">
+                    <label for="subtraction">Subtraction</label><br>
+                  
+                    <input type="radio" id="multiply" name="operation" value="multiplication">
+                    <label for="multiplication">Multiplication</label><br>
+                    
+                    <input type="radio" id="divide" name="operation" value="division">
+                    <label for="division">Division</label><br>
+
+                    <label for="answer"><b>Result</b></label>
+                        <input type="text" placeholder="result" id="result">
+                    <button type="submit" class="btn" id="operation">submit</button>
+            </fieldset>
+        </form>
+    </body>
+</body>
+</html>
